@@ -41,6 +41,9 @@ namespace ServiceContracts.DTO
         public int? UserID { get; set; }
 
         public string EntityName { get; set; }
+        public string Description {  get; set; }
+
+       
 
 
 
@@ -64,6 +67,7 @@ namespace ServiceContracts.DTO
                 AdminComments = AdminComments,
                 UserID =Convert.ToInt32( UserID),
                 EntityName = EntityName
+           
             
             
             

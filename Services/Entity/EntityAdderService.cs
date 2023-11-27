@@ -36,7 +36,7 @@ namespace Services.Entity
 
             var addedEntity=await _entityRepository.AddEntity(entity);
 
-            var addedEntityResponse=addedEntity.ToEntityResponse();
+            var addedEntityResponse = addedEntity.ToEntityResponse();
 
             // add the features to the the repository and associate them to the with the entity
 
@@ -44,10 +44,10 @@ namespace Services.Entity
             {
 
 
-                var entityItem = item.ToFeature();
-                entityItem.FeatureName = addedEntity.EntityName;
+                var feature = item.ToFeature();
+                feature.EntityName = addedEntity.EntityName;
 
-                var addedFeature = await _featureRepository.AddFeature(entityItem);
+                var addedFeature = await _featureRepository.AddFeature(feature);
 
                 addedEntityResponse.FeatureItems.Add(addedFeature.ToFeatureResponse());
             }

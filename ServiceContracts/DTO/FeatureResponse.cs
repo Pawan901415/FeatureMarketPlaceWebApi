@@ -24,10 +24,10 @@ namespace ServiceContracts.DTO
         public DateTime CreatedAt { get; set; }
 
 
-        public byte ApprovalStatus { get; set; }
+        public byte ?ApprovalStatus { get; set; }
 
 
-        public string AdminComments { get; set; }
+        public string? AdminComments { get; set; }
 
 
         public int UserId { get; set; }
@@ -36,6 +36,8 @@ namespace ServiceContracts.DTO
         public string EntityName { get; set; }
 
         public string Value { get; set; }
+
+        public string Description {  get; set; }
 
 
 
@@ -67,6 +69,8 @@ namespace ServiceContracts.DTO
 
                 CreatedAt = feature.CreatedAt,
                 Value = feature.Value
+
+                
 
 
 

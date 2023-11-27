@@ -99,11 +99,11 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
         [HttpPost]
 
-        [Route("AddFeature/{EntityName}")]
+        [Route("AddFeature")]
 
 
 
-        public async Task<ActionResult<FeatureResponse>> AddFeature(string EntityName,FeatureAddRequest featureAddRequest)
+        public async Task<ActionResult<FeatureResponse>> AddFeature(FeatureAddRequest featureAddRequest)
         {
             var addedfeature = await _featureAdderService.AddFeature(featureAddRequest);
 

@@ -35,6 +35,9 @@ namespace Entities
 
         [ForeignKey("Entity")]
         public string EntityName { get; set; }
+        //public string Description { get; set; }
+
+      
 
         public virtual EntityClass Entity { get; set; }
     }
