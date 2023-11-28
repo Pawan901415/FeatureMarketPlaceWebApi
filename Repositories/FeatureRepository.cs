@@ -13,12 +13,12 @@ namespace Repositories
 {
     public class FeatureRepository : IFeatureRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly TestContext _context;
         /// <summary>
         /// Initialize a new instance of the <see cref="FeatureRepository"/> class
         /// </summary>
         /// <param name="context"> the database context</param>
-        public FeatureRepository(ApplicationDbContext context) {
+        public FeatureRepository(TestContext context) {
         
         _context = context;
         

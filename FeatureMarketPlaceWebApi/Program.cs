@@ -23,10 +23,17 @@ builder.Services.AddCors(options =>
      }));
 
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//{
+//    options.UseSqlServer(myconstring);
+//} );
+
+builder.Services.AddDbContext<TestContext>(options =>
 {
-    options.UseSqlServer(myconstring);
-} );
+    options.UseInMemoryDatabase(databaseName: "Test");
+
+
+});
 
 
 builder.Services.AddScoped<IEntityRepository,EntityRepository>();

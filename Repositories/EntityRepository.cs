@@ -9,10 +9,12 @@ namespace Repositories
 {
     public class EntityRepository : IEntityRepository
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
+
+        private readonly TestContext _context;
 
 
-        public EntityRepository(ApplicationDbContext context) {
+        public EntityRepository(TestContext context) {
         
         _context = context;
         
