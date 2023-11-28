@@ -29,7 +29,7 @@ namespace Entities
 
         public byte ApprovalStatus { get; set; }
 
-        public string AdminComments { get; set; }
+        public string? AdminComments { get; set; }
 
         public int UserID { get; set; }
 

@@ -10,11 +10,9 @@ namespace Entities
     public  class TestContext:DbContext
     {
 
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //  optionsBuilder.UseInMemoryDatabase(databaseName: "Test");
-        //}
+        public TestContext(DbContextOptions<TestContext> options) : base(options)
+        {
+        }
 
 
         public DbSet<EntityClass> Entities { get; set; }
