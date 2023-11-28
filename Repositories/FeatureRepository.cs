@@ -76,7 +76,7 @@ namespace Repositories
 
         public async Task<List<FeatureClass>> GetFeaturesByEntityName(string EntityName)
         {
-            var featureItems = await _context.Features.Where(temp => temp.EntityName ==EntityName).ToListAsync();
+            var featureItems = await _context.Features.Where(temp => string.Equals(temp.EntityName,EntityName,StringComparison.OrdinalIgnoreCase)).ToListAsync();
 
             return featureItems;
         }

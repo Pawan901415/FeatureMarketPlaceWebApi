@@ -152,7 +152,7 @@ namespace FeatureMarketPlaceWebApi.Controllers
         /// <param name="FeatureId">The ID of the feature  to delete.</param>
         /// <returns>204 No Content if the deletion was successful, or 404 Not Found if the order item or order was not found.</returns>
         [HttpDelete]
-        [Route("DeleteEntity/{FeatureId:int}")]
+        [Route("DeleteFeature/{FeatureId:int}")]
         
         
         public async Task<ActionResult> DeleteFeature( int FeatureId)
