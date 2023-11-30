@@ -39,23 +39,62 @@ namespace ServiceContracts.DTO
     public static class EntityExtensions
     {
 
+        //public static EntityResponse ToEntityResponse(this EntityClass entity)
+        //{
+        //    return new EntityResponse
+        //    {
+        //       EntityName= entity.EntityName,
+        //       Description= entity.Description,
+        //    };
+        //}
+
+
+        //public static List<EntityResponse> ToEntityResponseList(this List<EntityClass> entities)
+        //{
+        //    var entityResponses = new List<EntityResponse>();
+        //    foreach (var entity in entities )
+        //    {
+        //        entityResponses.Add(entity.ToEntityResponse());
+        //    }
+        //    return entityResponses;
+        //}
+
+
+
+
         public static EntityResponse ToEntityResponse(this EntityClass entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new EntityResponse
             {
-               EntityName= entity.EntityName,
-               Description= entity.Description,
+                EntityName = entity.EntityName,
+                Description = entity.Description,
+                // Add other properties as needed
             };
         }
 
-
         public static List<EntityResponse> ToEntityResponseList(this List<EntityClass> entities)
         {
-            var entityResponses = new List<EntityResponse>();
-            foreach (var entity in entities )
+            if (entities == null)
             {
-                entityResponses.Add(entity.ToEntityResponse());
+                return null;
             }
+
+            var entityResponses = new List<EntityResponse>();
+
+            foreach (var entity in entities)
+            {
+                var response = entity.ToEntityResponse();
+                if (response != null)
+                {
+                    entityResponses.Add(response);
+                }
+            }
+
             return entityResponses;
         }
 
@@ -65,12 +104,12 @@ namespace ServiceContracts.DTO
 
 
     }
-    
-    
-    
-    
-    
-    }
+
+
+
+
+
+}
 
 
 

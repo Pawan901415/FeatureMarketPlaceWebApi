@@ -53,15 +53,24 @@ namespace Repositories
             return entities;
         }
 
-        public async  Task<EntityClass> GetEntityByName(string EntityName)
+        //public async  Task<EntityClass> GetEntityByName(string EntityName)
+        //{
+        //    var entity = await _context.Entities.Where(temp=>string.Equals(temp.EntityName,EntityName,StringComparison.OrdinalIgnoreCase)).FirstOrDefaultAsync();
+
+        //    if (entity == null)
+        //    {
+
+        //        return null;
+        //    }
+        //    return entity;
+        //}
+
+        public async Task<EntityClass> GetEntityByName(string EntityName)
         {
-            var entity = await _context.Entities.FindAsync(EntityName);
+            var  entity = await _context.Entities
+                .Where(temp => temp.EntityName.Contains(EntityName, StringComparison.OrdinalIgnoreCase))
+                .FirstOrDefaultAsync();
 
-            if (entity == null)
-            {
-
-                return null;
-            }
             return entity;
         }
 
