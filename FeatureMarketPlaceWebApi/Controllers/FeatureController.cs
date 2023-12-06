@@ -63,6 +63,17 @@ namespace FeatureMarketPlaceWebApi.Controllers
         }
 
 
+        [HttpGet]
+        [Route("GetAllFeatures")]
+
+        public async Task<ActionResult<List<FeatureResponse>>>GetAllFeatures()
+        {
+
+            var features=await _featureGetterService.GetAllFeature();
+            return Ok(features.ToList());
+        }
+
+
 
 
 

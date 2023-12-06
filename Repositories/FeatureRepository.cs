@@ -13,12 +13,12 @@ namespace Repositories
 {
     public class FeatureRepository : IFeatureRepository
     {
-        private readonly TestContext _context;
+        private readonly ApplicationDbContext _context;
         /// <summary>
         /// Initialize a new instance of the <see cref="FeatureRepository"/> class
         /// </summary>
         /// <param name="context"> the database context</param>
-        public FeatureRepository(TestContext context) {
+        public FeatureRepository(ApplicationDbContext context) {
         
         _context = context;
         
@@ -102,7 +102,7 @@ namespace Repositories
             existingFeatureItem.CreatedAt=feature.CreatedAt;
 
             existingFeatureItem.FeatureDataType=feature.FeatureDataType;
-            existingFeatureItem.UserID=feature.UserID;
+            existingFeatureItem.UserName=feature.UserName;
 
             await _context.SaveChangesAsync();
             return existingFeatureItem;

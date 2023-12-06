@@ -38,7 +38,7 @@ namespace ServiceContracts.DTO
 
         public string ? AdminComments { get; set; }
 
-        public int? UserID { get; set; }
+        public string ? UserName { get; set; }
 
         public string EntityName { get; set; }
         public string Description {  get; set; }
@@ -65,7 +65,7 @@ namespace ServiceContracts.DTO
                 CreatedAt = CreatedAt,
                 ApprovalStatus = Convert.ToByte(ApprovalStatus),
                 AdminComments = AdminComments,
-                UserID =Convert.ToInt32( UserID),
+                UserName = UserName,
                 EntityName = EntityName
            
             
@@ -108,11 +108,12 @@ namespace ServiceContracts.DTO
 
                AdminComments = FeatureItemRequest.AdminComments,
 
-               UserID = FeatureItemRequest.UserID,
+               UserName= FeatureItemRequest.UserName,
 
                CreatedAt= FeatureItemRequest.CreatedAt,
                ApprovalStatus= FeatureItemRequest.ApprovalStatus,
                EntityName= FeatureItemRequest.EntityName,
+               
                 
                 
                 

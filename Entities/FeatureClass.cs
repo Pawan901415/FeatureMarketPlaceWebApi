@@ -31,7 +31,7 @@ namespace Entities
 
         public string? AdminComments { get; set; }
 
-        public int UserID { get; set; }
+        public string UserName { get; set; }
 
         [ForeignKey("Entity")]
         public string EntityName { get; set; }

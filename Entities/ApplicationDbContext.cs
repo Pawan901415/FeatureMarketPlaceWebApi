@@ -29,11 +29,11 @@ namespace Entities
                 new EntityClass { EntityName = "Stock", Description = "This Stock entity contains features for Stock data" });
 
             modelBuilder.Entity<FeatureClass>().HasData(
-                new FeatureClass { EntityName = "Driver", FeatureID = 1, FeatureName = "Rating", Value = "4.8", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now },
-                new FeatureClass { EntityName = "Driver", FeatureID = 2, FeatureName = "TripsToday", Value = "12", FeatureDataType = "int", AdminComments = "good", CreatedAt = DateTime.Now },
-                new FeatureClass { EntityName = "Character", FeatureID = 3, FeatureName = "Height", Value = "5.2", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now },
-                new FeatureClass { EntityName = "Character", FeatureID = 4, FeatureName = "Width", Value = "12.6", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now },
-                new FeatureClass { EntityName = "Stock", FeatureID = 5, FeatureName = "Price", Value = "2444.12", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now }
+                new FeatureClass { EntityName = "Driver", FeatureID = 1, FeatureName = "Rating", Value = "4.8", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now,UserName="pawan" },
+                new FeatureClass { EntityName = "Driver", FeatureID = 2, FeatureName = "TripsToday", Value = "12", FeatureDataType = "int", AdminComments = "good", CreatedAt = DateTime.Now ,UserName="kunal"},
+                new FeatureClass { EntityName = "Character", FeatureID = 3, FeatureName = "Height", Value = "5.2", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now ,UserName= "kunal" },
+                new FeatureClass { EntityName = "Character", FeatureID = 4, FeatureName = "Width", Value = "12.6", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now,UserName="kunal" },
+                new FeatureClass { EntityName = "Stock", FeatureID = 5, FeatureName = "Price", Value = "2444.12", FeatureDataType = "double", AdminComments = "good", CreatedAt = DateTime.Now , UserName = "kunal" }
                 );
 
 

@@ -25,15 +25,15 @@ namespace RepositoryContracts
         /// <returns> a list of entities  </returns>
         Task<List<EntityClass>> GetAllEntities();
 
-
+        
 
 
 
         /// <summary>
-        /// Retrieve an entity based on the EntityName 
+        /// 
         /// </summary>
         /// <param name="EntityName"></param>
-        /// <returns>The Entity matching the name or null </returns>
+        /// <returns></returns>
         Task<EntityClass> GetEntityByName(string EntityName);
 
 

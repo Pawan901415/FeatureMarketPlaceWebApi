@@ -30,7 +30,7 @@ namespace ServiceContracts.DTO
         public string? AdminComments { get; set; }
 
 
-        public int UserId { get; set; }
+        public string UserName { get; set; }
 
 
         public string EntityName { get; set; }
@@ -63,7 +63,7 @@ namespace ServiceContracts.DTO
 
                 AdminComments = feature.AdminComments,
 
-                 UserId=feature.UserID,
+                 UserName=feature.UserName,
                 EntityName = feature.EntityName,
 
 
