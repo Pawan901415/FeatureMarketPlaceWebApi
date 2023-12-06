@@ -81,6 +81,29 @@ namespace Repositories
             return featureItems;
         }
 
+        public async Task<List<FeatureClass>>GetFeaturesByUserName(string UserName)
+        {
+            var featureItems = await _context.Features
+           .Where(temp => temp.UserName.ToLower() == UserName.ToLower())
+           .ToListAsync();
+            return featureItems;
+
+
+
+        }
+
+
+
+        public async Task<FeatureClass> GetFeaturesByFeatureName(string FeatureName)
+        {
+            var featureItem = await _context.Features
+                .Where(f => f.FeatureName.Contains(FeatureName))
+                .FirstOrDefaultAsync();
+
+            return featureItem;
+        }
+
+
         public async  Task<FeatureClass> UpdateFeature(FeatureClass feature)
         {
            var existingFeatureItem=await _context.Features.FindAsync(feature.FeatureID);

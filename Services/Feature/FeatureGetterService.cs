@@ -31,6 +31,12 @@ namespace Services.Feature
             return entityItems.ToFeatureResponseList();
         }
 
+        public async Task<List<FeatureResponse>>GetFeaturesByUserName(string UserName)
+        {
+            var featureitems=await _repository.GetFeaturesByUserName(UserName);
+            return featureitems.ToFeatureResponseList();
+        }
+
      ///  <inheritdoc />
      
         public async Task<FeatureResponse> GetFeatureByFeatureId(int featureId)
@@ -38,6 +44,12 @@ namespace Services.Feature
             var featureItem=await _repository.GetFeatureByFeatureId(featureId);
 
             return featureItem.ToFeatureResponse();
+        }
+
+        public async Task<FeatureResponse>GetFeatureByFeatureName(string FeatureName)
+        {
+            var featureitem=await _repository.GetFeaturesByFeatureName(FeatureName);
+            return featureitem.ToFeatureResponse();
         }
     }
 }

@@ -43,6 +43,10 @@ namespace ServiceContracts.Feature
 
         Task<FeatureResponse> GetFeatureByFeatureId(int featureId);
 
+        Task<List<FeatureResponse>>GetFeaturesByUserName(string userName);
+
+        Task<FeatureResponse> GetFeatureByFeatureName(string featureName);
+
 
 
 

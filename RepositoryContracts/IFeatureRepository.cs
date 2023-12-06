@@ -59,6 +59,19 @@ namespace RepositoryContracts
         /// <param name="featureId"></param>
         /// <returns>a feature by given id</returns>
         Task<FeatureClass> GetFeatureByFeatureId(int featureId);
+        /// <summary>
+        /// Retrives Features by Feature Id
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns>Feature with matched feature featureid</returns>
+        Task<List<FeatureClass>>GetFeaturesByUserName(string UserName);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="FeatureName"></param>
+        /// <returns></returns>
+
+        Task<FeatureClass> GetFeaturesByFeatureName(string FeatureName);
 
       
 

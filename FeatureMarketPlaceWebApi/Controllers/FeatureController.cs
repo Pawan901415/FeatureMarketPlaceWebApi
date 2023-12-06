@@ -61,6 +61,14 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
             return Ok(features);
         }
+        [HttpGet]
+        [Route("GetFeaturesByUserName/{UserName}")]
+        public async Task<ActionResult<List<FeatureResponse>>>GetFeaturesByUserName(string UserName)
+        {
+            var features = await _featureGetterService.GetFeaturesByUserName(UserName);
+            return Ok(features.ToList());
+
+        }
 
 
         [HttpGet]
@@ -93,6 +101,19 @@ namespace FeatureMarketPlaceWebApi.Controllers
         {
 
             var feature=await _featureGetterService.GetFeatureByFeatureId(FeatureId);
+
+            return Ok(feature);
+
+        }
+
+
+        [HttpGet]
+        [Route("GetFeatureByFeatureName/{FeatureName}")]
+
+        public async Task<ActionResult<FeatureResponse?>> GetFeatureByFeatureName(string  FeatureName)
+        {
+
+            var feature = await _featureGetterService.GetFeatureByFeatureName(FeatureName);
 
             return Ok(feature);
 
