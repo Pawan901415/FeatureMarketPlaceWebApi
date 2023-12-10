@@ -23,19 +23,19 @@ namespace Services.Feature
             _repository = repository;
         }
 
-        public  async Task<FeatureResponse> UpdateFeature(FeatureUpdateRequest updateRequest)
-        {
-            // convert the update request to an Feature Entity
+        //public  async Task<FeatureResponse> UpdateFeature(FeatureUpdateRequest updateRequest)
+        //{
+        //    // convert the update request to an Feature Entity
 
-            var feature=updateRequest.ToFeature();
+        //    var feature=updateRequest.ToFeature();
 
-            var updatedFeature = await _repository.UpdateFeature(feature);
+        //    var updatedFeature = await _repository.UpdateFeature(feature);
 
-            return updatedFeature.ToFeatureResponse();
-
-
+        //    return updatedFeature.ToFeatureResponse();
 
 
-        }
+
+
+        //}
     }
 }

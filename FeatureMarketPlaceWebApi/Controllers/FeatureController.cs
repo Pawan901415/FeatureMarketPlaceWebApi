@@ -61,6 +61,12 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
             return Ok(features);
         }
+
+
+
+
+
+
         [HttpGet]
         [Route("GetFeaturesByUserName/{UserName}")]
         public async Task<ActionResult<List<FeatureResponse>>>GetFeaturesByUserName(string UserName)
@@ -78,7 +84,19 @@ namespace FeatureMarketPlaceWebApi.Controllers
         {
 
             var features=await _featureGetterService.GetAllFeature();
-            return Ok(features.ToList());
+
+            return Ok(features);
+        }
+
+
+
+        [HttpGet]
+        [Route("GetFilteredPersons/{SearchBy}/{SearchString}")]
+
+        public async Task<ActionResult<List<FeatureResponse>>>GetFilteredFeatures(string SearchBy,string SearchString)
+        {
+            var featureItems=await _featureGetterService.GetFilteredFeature(SearchBy, SearchString);
+            return Ok(featureItems);
         }
 
 
@@ -159,22 +177,22 @@ namespace FeatureMarketPlaceWebApi.Controllers
         [Route("UpdateFeature/{EntityName}")]
 
 
-        public async Task<ActionResult<FeatureResponse>> UpdateFeature(string EntityName, FeatureUpdateRequest featureRequest)
-        {
-            if (EntityName != featureRequest.FeatureName)
-            {
+        //public async Task<ActionResult<FeatureResponse>> UpdateFeature(string EntityName, FeatureUpdateRequest featureRequest)
+        //{
+        //    if (EntityName != featureRequest.FeatureName)
+        //    {
                 
-                return BadRequest();
-            }
+        //        return BadRequest();
+        //    }
 
            
 
-            var updatedFeature = await _featureUpdaterService.UpdateFeature(featureRequest);
+        //    var updatedFeature = await _featureUpdaterService.UpdateFeature(featureRequest);
 
            
 
-            return Ok(updatedFeature);
-        }
+        //    return Ok(updatedFeature);
+        //}
 
 
         /// <summary>

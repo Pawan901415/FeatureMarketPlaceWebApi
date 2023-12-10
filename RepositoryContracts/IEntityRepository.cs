@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿ using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryContracts
 {
@@ -52,6 +53,11 @@ namespace RepositoryContracts
         /// <param name="order">The updated order.</param>
         /// <returns>The updated order.</returns>
         Task<EntityClass> UpdateEntity(EntityClass entity);
+
+        Task<List<string>> GetEntityNamesByUserName(string userName);
+
+
+       
 
 
 

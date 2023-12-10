@@ -1,4 +1,5 @@
-﻿using RepositoryContracts;
+﻿using Entities;
+using RepositoryContracts;
 using ServiceContracts.DTO;
 using ServiceContracts.Entity;
 using ServiceContracts.Feature;
@@ -48,6 +49,12 @@ namespace Services.Entity
 
             return entityResponse;
             
+        }
+
+        public async Task<List<string>> GetEntityNamesByUserName(string userName)
+        {
+            var entities=await _entityRepository.GetEntityNamesByUserName(userName);
+            return(entities);
         }
     }
 }

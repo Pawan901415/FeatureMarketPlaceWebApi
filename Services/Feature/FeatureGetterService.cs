@@ -51,5 +51,60 @@ namespace Services.Feature
             var featureitem=await _repository.GetFeaturesByFeatureName(FeatureName);
             return featureitem.ToFeatureResponse();
         }
+
+        public async Task<List<FeatureResponse>> GetFilteredFeature(string SearchBy, string SearchString)
+        {
+            var allFeatures = await _repository.GetAllFeatures();
+           var matchingFeatures= allFeatures;
+
+            if (string.IsNullOrEmpty(SearchBy) || string.IsNullOrEmpty(SearchString))
+                return matchingFeatures.ToFeatureResponseList();
+        
+
+
+            switch (SearchBy)
+            {
+                case nameof(FeatureResponse.FeatureName ) :
+                    matchingFeatures = allFeatures.Where(temp =>
+                    (!string.IsNullOrEmpty(temp.FeatureName) ?
+                    temp.FeatureName.Contains(SearchString, StringComparison.OrdinalIgnoreCase) : true)).ToList();
+                    break;
+
+                case nameof(FeatureResponse.EntityName):
+                    matchingFeatures = allFeatures.Where(temp =>
+                    (!string.IsNullOrEmpty(temp.EntityName) ?
+                    temp.EntityName.Contains(SearchString, StringComparison.OrdinalIgnoreCase) : true)).ToList();
+                    break;
+
+
+                case nameof(FeatureResponse.CreatedAt):
+                    matchingFeatures= allFeatures.Where(temp =>
+                    (temp.CreatedAt != null) ?
+                    temp.CreatedAt.ToString("dd MMMM yyyy").Contains(SearchString, StringComparison.OrdinalIgnoreCase) : true).ToList();
+                    break;
+
+                case nameof(FeatureResponse.FeatureDataType):
+                    matchingFeatures = allFeatures.Where(temp =>
+                    (!string.IsNullOrEmpty(temp.FeatureDataType) ?
+                    temp.FeatureDataType.Contains(SearchString, StringComparison.OrdinalIgnoreCase) : true)).ToList();
+                    break;
+
+                case nameof(FeatureResponse.FeatureId):
+                    matchingFeatures = allFeatures.Where(temp =>
+                    (!string.IsNullOrEmpty(temp.FeatureID.ToString()) ?
+                    temp.FeatureID.ToString().Contains(SearchString, StringComparison.OrdinalIgnoreCase) : true)).ToList();
+                    break;
+
+
+                default: matchingFeatures = allFeatures; break;
+            }
+            return matchingFeatures.ToFeatureResponseList();
+        }
+
+        public Task<List<FeatureResponse>> GetEntityByUserName(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
-}
+    }
+

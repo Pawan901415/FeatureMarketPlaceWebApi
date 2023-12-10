@@ -65,14 +65,31 @@ namespace Repositories
         //    return entity;
         //}
 
+        
+
         public async Task<EntityClass> GetEntityByName(string EntityName)
         {
-            var  entity = await _context.Entities
-                .Where(temp => temp.EntityName.Contains(EntityName, StringComparison.OrdinalIgnoreCase))
+            var featureItem = await _context.Entities
+                .Where(f => f.EntityName.Contains(EntityName))
                 .FirstOrDefaultAsync();
+            if (featureItem == null)
+            {
+                return null;
+            }
 
-            return entity;
+            return featureItem;
         }
+
+        public async Task<List<string>> GetEntityNamesByUserName(string userName)
+        {
+
+            return await _context.Features
+            .Where(f => f.UserName == userName)
+            .Select(f => f.EntityName)
+            .ToListAsync();
+        }
+
+    
 
         public async  Task<EntityClass> UpdateEntity(EntityClass entity)
         {
@@ -94,5 +111,6 @@ namespace Repositories
 
             
         }
+
     }
 }

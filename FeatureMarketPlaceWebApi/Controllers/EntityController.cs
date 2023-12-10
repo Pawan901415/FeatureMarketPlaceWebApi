@@ -47,7 +47,7 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
         [HttpGet]
         [Route("GetAllEntities")]
-       
+
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public async Task<ActionResult<List<EntityResponse>>> GetAllEntities()
@@ -56,6 +56,17 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
             return Ok(entities);
         }
+
+
+        [HttpGet]
+        [Route("GetEntitiesByUserName/{UserName}")]
+        public async Task<ActionResult<List<string>>>GetEntitiesByUserName(string UserName) {
+
+            var entities = await _entityGetterService.GetEntityNamesByUserName(UserName);
+            return Ok(entities);
+
+
+            }
 
 
 

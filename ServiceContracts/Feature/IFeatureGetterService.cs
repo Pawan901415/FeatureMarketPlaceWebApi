@@ -47,6 +47,17 @@ namespace ServiceContracts.Feature
 
         Task<FeatureResponse> GetFeatureByFeatureName(string featureName);
 
+        /// <summary>
+        /// It Returns a filtered feature based on 
+        /// </summary>
+        /// <param name="SearchBy"></param>
+        /// <param name="SearchString"></param>
+        /// <returns> the feature matching</returns>
+        Task <List<FeatureResponse>> GetFilteredFeature(string SearchBy, string SearchString);
+
+
+        Task<List<FeatureResponse>> GetEntityByUserName(string userName);
+
 
 
 

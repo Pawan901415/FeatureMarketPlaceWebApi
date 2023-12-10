@@ -31,5 +31,9 @@ namespace ServiceContracts.Entity
         /// </returns>
         Task<EntityResponse> GetEntityByEntityName(string EntityName);
 
+
+        Task<List<string>> GetEntityNamesByUserName(string userName);
+
+
     }
 }

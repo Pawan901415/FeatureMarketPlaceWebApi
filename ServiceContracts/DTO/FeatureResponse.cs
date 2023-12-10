@@ -30,14 +30,14 @@ namespace ServiceContracts.DTO
         public string? AdminComments { get; set; }
 
 
-        public string UserName { get; set; }
+        public string ?UserName { get; set; }
 
 
         public string EntityName { get; set; }
 
         public string Value { get; set; }
 
-        public string Description {  get; set; }
+        //public string Description {  get; set; }
 
 
 

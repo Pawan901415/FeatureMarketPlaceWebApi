@@ -44,7 +44,7 @@ namespace RepositoryContracts
         /// </summary>
         /// <param name="orderItem">The updated order item.</param>
         /// <returns>The updated feature</returns>
-        Task<FeatureClass> UpdateFeature(FeatureClass feature);
+        //Task<FeatureClass> UpdateFeature(FeatureClass feature);
         /// <summary>
         /// Retrieve all the features of given specific entity
         /// </summary>
@@ -52,7 +52,7 @@ namespace RepositoryContracts
         /// <returns> list of features</returns>
         Task<List<FeatureClass>> GetFeaturesByEntityName(string EntityName);
 
-
+         
         /// <summary>
         /// Retrieve feature by feature name
         /// </summary>
@@ -72,6 +72,8 @@ namespace RepositoryContracts
         /// <returns></returns>
 
         Task<FeatureClass> GetFeaturesByFeatureName(string FeatureName);
+
+        
 
       
 

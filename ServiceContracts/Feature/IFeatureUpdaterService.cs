@@ -14,6 +14,6 @@ namespace ServiceContracts.Feature
     {
 
 
-        Task<FeatureResponse> UpdateFeature(FeatureUpdateRequest updateRequest);
+      //  Task<FeatureResponse> UpdateFeature(FeatureUpdateRequest updateRequest);
     }
 }

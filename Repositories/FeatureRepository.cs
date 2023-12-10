@@ -59,9 +59,21 @@ namespace Repositories
 
         public async Task<List<FeatureClass>> GetAllFeatures()
         {
-            var featureitems=await _context.Features.OrderBy(temp=>temp.FeatureID).ToListAsync();
-            return featureitems;
+            var features = await _context.Features.ToListAsync();
+            foreach (var feature in features)
+            {
+                if (feature.AdminComments == null && feature.UserName==null)
+                {
+                    feature.AdminComments = "No comments from admin";
+                    feature.UserName = "Kunal";
+                    _context.SaveChanges();
+                    
+                    // default value
+                }
+            }
+            return features;
         }
+
 
         public async Task<FeatureClass> GetFeatureByFeatureId(int featureId)
         {
@@ -76,7 +88,10 @@ namespace Repositories
 
         public async Task<List<FeatureClass>> GetFeaturesByEntityName(string EntityName)
         {
-            var featureItems = await _context.Features.Where(temp => string.Equals(temp.EntityName,EntityName,StringComparison.OrdinalIgnoreCase)).ToListAsync();
+            var featureItems = await _context.Features
+            .Where(temp => temp.EntityName.ToLower() == EntityName.ToLower())
+            .ToListAsync();
+            return featureItems;
 
             return featureItems;
         }
@@ -99,38 +114,15 @@ namespace Repositories
             var featureItem = await _context.Features
                 .Where(f => f.FeatureName.Contains(FeatureName))
                 .FirstOrDefaultAsync();
+            if(featureItem == null)
+            {
+                return null;
+            }
 
             return featureItem;
         }
 
 
-        public async  Task<FeatureClass> UpdateFeature(FeatureClass feature)
-        {
-           var existingFeatureItem=await _context.Features.FindAsync(feature.FeatureID);
-
-            if(existingFeatureItem == null)
-            {
-
-                throw new ArgumentException($"Feature Item with ID {feature.FeatureID} doesn't exist");
-            }
-
-            // Update the properties of the existing Feature with the new value
-
-
-            existingFeatureItem.FeatureID=feature.FeatureID;
-            existingFeatureItem.FeatureName=feature.FeatureName;
-            existingFeatureItem.AdminComments=feature.AdminComments;
-
-            existingFeatureItem.ApprovalStatus=feature.ApprovalStatus;
-            existingFeatureItem.CreatedAt=feature.CreatedAt;
-
-            existingFeatureItem.FeatureDataType=feature.FeatureDataType;
-            existingFeatureItem.UserName=feature.UserName;
-
-            await _context.SaveChangesAsync();
-            return existingFeatureItem;
-
-
-        }
+       
     }
 }
