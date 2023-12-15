@@ -39,25 +39,7 @@ namespace ServiceContracts.DTO
     public static class EntityExtensions
     {
 
-        //public static EntityResponse ToEntityResponse(this EntityClass entity)
-        //{
-        //    return new EntityResponse
-        //    {
-        //       EntityName= entity.EntityName,
-        //       Description= entity.Description,
-        //    };
-        //}
 
-
-        //public static List<EntityResponse> ToEntityResponseList(this List<EntityClass> entities)
-        //{
-        //    var entityResponses = new List<EntityResponse>();
-        //    foreach (var entity in entities )
-        //    {
-        //        entityResponses.Add(entity.ToEntityResponse());
-        //    }
-        //    return entityResponses;
-        //}
 
 
 
@@ -69,13 +51,20 @@ namespace ServiceContracts.DTO
                 return null;
             }
 
-            return new EntityResponse
+            var entityResponse = new EntityResponse
             {
                 EntityName = entity.EntityName,
                 Description = entity.Description,
-                // Add other properties as needed
             };
+
+            if (entity.Features != null)
+            {
+                entityResponse.FeatureItems = entity.Features.Select(feature => feature.ToFeatureResponse()).ToList();
+            }
+
+            return entityResponse;
         }
+
 
         public static List<EntityResponse> ToEntityResponseList(this List<EntityClass> entities)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
 using ServiceContracts.DTO;
 using ServiceContracts.Feature;
 
@@ -10,7 +11,7 @@ namespace FeatureMarketPlaceWebApi.Controllers
     [ApiController]
     public class FeatureController : ControllerBase
     {
-       private readonly IFeatureAdderService _featureAdderService;
+        private readonly IFeatureAdderService _featureAdderService;
         private readonly IFeatureDeleterService _featureDeleterService;
         private readonly IFeatureGetterService _featureGetterService;
         private readonly IFeatureUpdaterService _featureUpdaterService;
@@ -18,9 +19,9 @@ namespace FeatureMarketPlaceWebApi.Controllers
         // Injecting Services 
 
         public FeatureController(
-            
-            
-            
+
+
+
         IFeatureUpdaterService featureUpdaterService,
         IFeatureDeleterService featureDeleterService,
         IFeatureGetterService featureGetterService,
@@ -52,12 +53,12 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
         [HttpGet]
         [Route("GetFeaturesByEntityName/{EntityName}")]
-        
 
 
-        public async Task<ActionResult<List<FeatureResponse>>>GetFeaturesByEntityName(string EntityName)
+
+        public async Task<ActionResult<List<FeatureResponse>>> GetFeaturesByEntityName(string EntityName)
         {
-            var features=await _featureGetterService.GetFeatureByEntityName(EntityName);
+            var features = await _featureGetterService.GetFeatureByEntityName(EntityName);
 
             return Ok(features);
         }
@@ -69,7 +70,7 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
         [HttpGet]
         [Route("GetFeaturesByUserName/{UserName}")]
-        public async Task<ActionResult<List<FeatureResponse>>>GetFeaturesByUserName(string UserName)
+        public async Task<ActionResult<List<FeatureResponse>>> GetFeaturesByUserName(string UserName)
         {
             var features = await _featureGetterService.GetFeaturesByUserName(UserName);
             return Ok(features.ToList());
@@ -80,10 +81,10 @@ namespace FeatureMarketPlaceWebApi.Controllers
         [HttpGet]
         [Route("GetAllFeatures")]
 
-        public async Task<ActionResult<List<FeatureResponse>>>GetAllFeatures()
+        public async Task<ActionResult<List<FeatureResponse>>> GetAllFeatures()
         {
 
-            var features=await _featureGetterService.GetAllFeature();
+            var features = await _featureGetterService.GetAllFeature();
 
             return Ok(features);
         }
@@ -93,9 +94,9 @@ namespace FeatureMarketPlaceWebApi.Controllers
         [HttpGet]
         [Route("GetFilteredPersons/{SearchBy}/{SearchString}")]
 
-        public async Task<ActionResult<List<FeatureResponse>>>GetFilteredFeatures(string SearchBy,string SearchString)
+        public async Task<ActionResult<List<FeatureResponse>>> GetFilteredFeatures(string SearchBy, string SearchString)
         {
-            var featureItems=await _featureGetterService.GetFilteredFeature(SearchBy, SearchString);
+            var featureItems = await _featureGetterService.GetFilteredFeature(SearchBy, SearchString);
             return Ok(featureItems);
         }
 
@@ -114,11 +115,11 @@ namespace FeatureMarketPlaceWebApi.Controllers
         /// 
         [HttpGet]
         [Route("GetFeatureByFeatureId/{FeatureId:int}")]
-       
-        public async Task<ActionResult<FeatureResponse?>>GetFeatureById(int FeatureId)
+
+        public async Task<ActionResult<FeatureResponse?>> GetFeatureById(int FeatureId)
         {
 
-            var feature=await _featureGetterService.GetFeatureByFeatureId(FeatureId);
+            var feature = await _featureGetterService.GetFeatureByFeatureId(FeatureId);
 
             return Ok(feature);
 
@@ -128,7 +129,7 @@ namespace FeatureMarketPlaceWebApi.Controllers
         [HttpGet]
         [Route("GetFeatureByFeatureName/{FeatureName}")]
 
-        public async Task<ActionResult<FeatureResponse?>> GetFeatureByFeatureName(string  FeatureName)
+        public async Task<ActionResult<FeatureResponse?>> GetFeatureByFeatureName(string FeatureName)
         {
 
             var feature = await _featureGetterService.GetFeatureByFeatureName(FeatureName);
@@ -159,9 +160,23 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
             return CreatedAtAction(nameof(AddFeature), addedfeature);
         }
+        
 
-
-
+        [HttpPost]
+        [Route("AddMultipleFeatures")]
+        public async Task<IActionResult> AddFeatures([FromBody] List<FeatureAddRequest> featureRequests)
+        {
+            try
+            {
+                var featureResponses = await _featureAdderService.AddMultipleFeatures(featureRequests);
+                return Ok(featureResponses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details here
+                return StatusCode(500, "Internal server error");
+            }
+        }
 
 
 
@@ -174,25 +189,26 @@ namespace FeatureMarketPlaceWebApi.Controllers
         /// <returns>The updated feature item, or 400 Bad Request if the ID doesn't match the request.</returns>
         /// 
         [HttpPut]
-        [Route("UpdateFeature/{EntityName}")]
+        [Route("UpdateFeature/{id}")]
+
+        
+        public async Task<IActionResult> UpdateFeature(int id, [FromBody] FeatureUpdateRequest featureRequest)
+        {
+            try
+            {
+                var updatedFeature = await _featureUpdaterService.UpdateFeature(id, featureRequest);
+                return Ok(updatedFeature);
+            }
+            catch (Exception ex)
+            {
+                // Logging the exception...
+                return StatusCode(500, "Internal server error");
+            }
+        }
 
 
-        //public async Task<ActionResult<FeatureResponse>> UpdateFeature(string EntityName, FeatureUpdateRequest featureRequest)
-        //{
-        //    if (EntityName != featureRequest.FeatureName)
-        //    {
-                
-        //        return BadRequest();
-        //    }
 
-           
 
-        //    var updatedFeature = await _featureUpdaterService.UpdateFeature(featureRequest);
-
-           
-
-        //    return Ok(updatedFeature);
-        //}
 
 
         /// <summary>

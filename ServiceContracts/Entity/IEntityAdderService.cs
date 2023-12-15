@@ -8,7 +8,7 @@ using ServiceContracts.DTO;
 namespace ServiceContracts.Entity
 {
     /// <summary>
-    /// Reperesent a service for ading orders
+    /// Reperesent a service for adding entity
     /// </summary>
    public  interface IEntityAdderService
     {

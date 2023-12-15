@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using RepositoryContracts;
+using ServiceContracts.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,7 +123,30 @@ namespace Repositories
             return featureItem;
         }
 
+        public async Task UpdateFeatureAsync(int featureId, FeatureUpdateRequest featureUpdateRequest)
+        {
+            // Fetch the existing entity from the database
+            var feature = await _context.Features.FindAsync(featureId);
+            if (feature == null)
+            {
+                throw new Exception("Feature not found");
+            }
 
-       
+            // Update the properties with the new values from the DTO
+            feature.FeatureName = featureUpdateRequest.FeatureName;
+            feature.Value = featureUpdateRequest.Value;
+            feature.FeatureDataType = featureUpdateRequest.FeatureDataType;
+
+            // Save the changes
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<FeatureClass> UpdateFeature(FeatureClass feature)
+        {
+            _context.Entry(feature).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return feature;
+        }
     }
 }
+

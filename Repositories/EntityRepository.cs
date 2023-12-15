@@ -3,6 +3,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols;
 using RepositoryContracts;
+using ServiceContracts.DTO;
 using System.Runtime.InteropServices;
 
 namespace Repositories
@@ -53,17 +54,7 @@ namespace Repositories
             return entities;
         }
 
-        //public async  Task<EntityClass> GetEntityByName(string EntityName)
-        //{
-        //    var entity = await _context.Entities.Where(temp=>string.Equals(temp.EntityName,EntityName,StringComparison.OrdinalIgnoreCase)).FirstOrDefaultAsync();
-
-        //    if (entity == null)
-        //    {
-
-        //        return null;
-        //    }
-        //    return entity;
-        //}
+        
 
         
 
@@ -89,28 +80,28 @@ namespace Repositories
             .ToListAsync();
         }
 
-    
-
-        public async  Task<EntityClass> UpdateEntity(EntityClass entity)
+        public async Task<EntityClass> UpdateEntityAsync(string entityName, EntityUpdateRequest request)
         {
 
-            var existingOrder = await _context.Entities.FindAsync(entity.EntityName);
-            if (existingOrder == null)
+            // Fetch the existing entity from the database
+            var existingEntity = await _context.Entities
+                .SingleOrDefaultAsync(e => e.EntityName == entityName);
+
+            if (existingEntity == null)
             {
-                return entity;
+                // Handle the case when the entity is not found
+                throw new Exception("Entity not found");
             }
-            // Update the properties of the existing entitiy with new values
 
-            existingOrder.EntityName = entity.EntityName;
-            existingOrder.Description = entity.Description;
+            // Update the properties of the existing entity with new values
+            existingEntity.EntityName = request.EntityName;
+            existingEntity.Description = request.Description;
 
-            // save the changes to the database
+            // Save the changes to the database
             await _context.SaveChangesAsync();
 
-            return entity;
+            return existingEntity;
 
-            
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using RepositoryContracts;
+﻿using Repositories;
+using RepositoryContracts;
 using ServiceContracts.DTO;
 using ServiceContracts.Feature;
 using System;
@@ -23,19 +24,44 @@ namespace Services.Feature
             _repository = repository;
         }
 
-        //public  async Task<FeatureResponse> UpdateFeature(FeatureUpdateRequest updateRequest)
-        //{
-        //    // convert the update request to an Feature Entity
+        public async  Task<FeatureResponse> UpdateFeature(int id, FeatureUpdateRequest featureRequest)
+        {
 
-        //    var feature=updateRequest.ToFeature();
+            // Getting the existing feature from the repository
+            var existingFeature = await _repository.GetFeatureByFeatureId(id);
 
-        //    var updatedFeature = await _repository.UpdateFeature(feature);
+            if (existingFeature == null)
+            {
+                throw new Exception("Feature not found");
+            }
 
-        //    return updatedFeature.ToFeatureResponse();
+            // Update the fields of the existing feature
+            if (featureRequest.FeatureName != null)
+            {
+                existingFeature.FeatureName = featureRequest.FeatureName;
+            }
+            if (featureRequest.Value != null)
+            {
+                existingFeature.Value = featureRequest.Value;
+            }
+            if (featureRequest.FeatureDataType != null)
+            {
+                existingFeature.FeatureDataType = featureRequest.FeatureDataType;
+            }
+
+            // Saving the updated feature back to the repository
+            var updatedFeature = await _repository.UpdateFeature(existingFeature);
+
+            // Converting the updated feature to a response DTO using the ToFeatureResponse extension method
+            return updatedFeature.ToFeatureResponse();
+        }
 
 
 
 
-        //}
+
+
+
+        
     }
 }

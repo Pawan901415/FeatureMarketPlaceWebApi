@@ -22,5 +22,8 @@ namespace ServiceContracts.Feature
         /// the added feature
         /// </returns>
         Task<FeatureResponse> AddFeature(FeatureAddRequest featureRequest);
+
+        Task<List<FeatureResponse>> AddMultipleFeatures(List<FeatureAddRequest> featureRequests);
+
     }
 }

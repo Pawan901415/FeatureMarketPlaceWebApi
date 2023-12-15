@@ -137,21 +137,12 @@ namespace FeatureMarketPlaceWebApi.Controllers
 
         [HttpPut]
         [Route("UpdateEntity/{EntityName}")]
-       
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<ActionResult<EntityResponse>> UpdateEntity(string EntityName,EntityUpdateRequest entityUpdateRequest)
-
+        public async Task<ActionResult<EntityResponse>> UpdateEntity(string EntityName, EntityUpdateRequest entityUpdateRequest)
         {
-            if (EntityName == entityUpdateRequest.EntityName)
-            {
-                return BadRequest();
-            }
-
-            var updatedEntity=await _entityUpdaterService.UpdateEntity(entityUpdateRequest);
-        return Ok(updatedEntity);
-        
+            var updatedEntity = await _entityUpdaterService.UpdateEntity(EntityName, entityUpdateRequest);
+            return Ok(updatedEntity);
         }
 
 

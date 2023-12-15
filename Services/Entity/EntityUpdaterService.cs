@@ -20,13 +20,15 @@ namespace Services.Entity
         {
             _entityRepository = entityRepository;
         }
-            public async Task<EntityResponse> UpdateEntity(EntityUpdateRequest updateRequest)
+        public async Task<EntityResponse> UpdateEntity(string entityName, EntityUpdateRequest updateRequest)
         {
-            var entity=updateRequest.ToEntity();
+            // Pass the updateRequest directly to the repository method
+            var updatedEntity = await _entityRepository.UpdateEntityAsync(entityName, updateRequest);
 
-            var updatedEntity=await _entityRepository.UpdateEntity(entity);
-            var updatedEntityResponse=updatedEntity.ToEntityResponse();
-            return updatedEntityResponse;   
+            var updatedEntityResponse = updatedEntity.ToEntityResponse();
+            return updatedEntityResponse;
         }
+
+       
     }
 }

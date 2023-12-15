@@ -34,7 +34,7 @@ namespace ServiceContracts.DTO
 
         public DateTime CreatedAt { get; set; }
 
-        public byte ApprovalStatus { get; set; }
+        public byte ApprovalStatus { get; set; } = 2;
 
         public string ? AdminComments { get; set; }
 
@@ -63,7 +63,7 @@ namespace ServiceContracts.DTO
 
 
                 CreatedAt = CreatedAt,
-                ApprovalStatus = Convert.ToByte(ApprovalStatus),
+                ApprovalStatus = ApprovalStatus,
                 AdminComments = AdminComments,
                 UserName = UserName,
                 EntityName = EntityName

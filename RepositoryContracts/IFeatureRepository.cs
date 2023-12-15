@@ -1,4 +1,5 @@
 ﻿using Entities;
+using ServiceContracts.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace RepositoryContracts
         /// </summary>
         /// <returns> a list of features</returns>
         Task<List<FeatureClass>> GetAllFeatures();
+
+        public Task UpdateFeatureAsync(int featureId,FeatureUpdateRequest featureUpdateRequest);
 
 
 
@@ -73,22 +76,34 @@ namespace RepositoryContracts
 
         Task<FeatureClass> GetFeaturesByFeatureName(string FeatureName);
 
-        
-
-      
-
-
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="feature"></param>
+        /// <returns></returns>
+        Task<FeatureClass> UpdateFeature(FeatureClass feature);
     }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
 

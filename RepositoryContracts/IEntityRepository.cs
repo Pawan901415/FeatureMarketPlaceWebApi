@@ -1,5 +1,6 @@
 ﻿ using Entities;
 using Microsoft.EntityFrameworkCore;
+using ServiceContracts.DTO;
 
 namespace RepositoryContracts
 {
@@ -48,11 +49,13 @@ namespace RepositoryContracts
 
 
         /// <summary>
-        /// Updates an order in the repository.
+        /// Updates an entity in the repository.
         /// </summary>
-        /// <param name="order">The updated order.</param>
-        /// <returns>The updated order.</returns>
-        Task<EntityClass> UpdateEntity(EntityClass entity);
+        /// <param name="entity">The updated entity.</param>
+        /// <returns>The updated entity.</returns>
+        /// 
+        Task<EntityClass> UpdateEntityAsync(string entityName, EntityUpdateRequest request);
+
 
         Task<List<string>> GetEntityNamesByUserName(string userName);
 

@@ -11,6 +11,6 @@ namespace ServiceContracts.Entity
     {
 
 
-        Task<EntityResponse> UpdateEntity(EntityUpdateRequest updateRequest);
+        Task<EntityResponse> UpdateEntity(string EntityName, EntityUpdateRequest updateRequest);
     }
 }

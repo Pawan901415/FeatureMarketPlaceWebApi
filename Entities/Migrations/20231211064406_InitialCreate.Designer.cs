@@ -4,6 +4,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231211064406_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +105,7 @@ namespace Entities.Migrations
                             FeatureID = 1,
                             AdminComments = "good",
                             ApprovalStatus = (byte)0,
-                            CreatedAt = new DateTime(2023, 12, 11, 19, 21, 25, 852, DateTimeKind.Local).AddTicks(9886),
+                            CreatedAt = new DateTime(2023, 12, 11, 12, 14, 6, 520, DateTimeKind.Local).AddTicks(775),
                             EntityName = "Driver",
                             FeatureDataType = "double",
                             FeatureName = "Rating",
@@ -114,7 +117,7 @@ namespace Entities.Migrations
                             FeatureID = 2,
                             AdminComments = "good",
                             ApprovalStatus = (byte)0,
-                            CreatedAt = new DateTime(2023, 12, 11, 19, 21, 25, 852, DateTimeKind.Local).AddTicks(9902),
+                            CreatedAt = new DateTime(2023, 12, 11, 12, 14, 6, 520, DateTimeKind.Local).AddTicks(793),
                             EntityName = "Driver",
                             FeatureDataType = "int",
                             FeatureName = "TripsToday",
@@ -126,7 +129,7 @@ namespace Entities.Migrations
                             FeatureID = 3,
                             AdminComments = "good",
                             ApprovalStatus = (byte)0,
-                            CreatedAt = new DateTime(2023, 12, 11, 19, 21, 25, 852, DateTimeKind.Local).AddTicks(9906),
+                            CreatedAt = new DateTime(2023, 12, 11, 12, 14, 6, 520, DateTimeKind.Local).AddTicks(795),
                             EntityName = "Character",
                             FeatureDataType = "double",
                             FeatureName = "Height",
@@ -138,7 +141,7 @@ namespace Entities.Migrations
                             FeatureID = 4,
                             AdminComments = "good",
                             ApprovalStatus = (byte)0,
-                            CreatedAt = new DateTime(2023, 12, 11, 19, 21, 25, 852, DateTimeKind.Local).AddTicks(9908),
+                            CreatedAt = new DateTime(2023, 12, 11, 12, 14, 6, 520, DateTimeKind.Local).AddTicks(797),
                             EntityName = "Character",
                             FeatureDataType = "double",
                             FeatureName = "Width",
@@ -150,7 +153,7 @@ namespace Entities.Migrations
                             FeatureID = 5,
                             AdminComments = "good",
                             ApprovalStatus = (byte)0,
-                            CreatedAt = new DateTime(2023, 12, 11, 19, 21, 25, 852, DateTimeKind.Local).AddTicks(9910),
+                            CreatedAt = new DateTime(2023, 12, 11, 12, 14, 6, 520, DateTimeKind.Local).AddTicks(799),
                             EntityName = "Stock",
                             FeatureDataType = "double",
                             FeatureName = "Price",

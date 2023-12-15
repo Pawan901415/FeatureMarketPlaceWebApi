@@ -17,15 +17,17 @@ namespace Services.Feature
         private readonly IFeatureRepository _featureRepository;
 
         private readonly IEntityRepository _entityRepository;
-
-
-
+        private IEntityRepository entityRepository;
+        private IFeatureRepository featureRepository;
 
         public FeatureAdderService(IFeatureRepository featureRepository, IEntityRepository entityRepository)
         {
             _featureRepository = featureRepository;
             _entityRepository = entityRepository;
         }
+
+      
+
         public async Task<FeatureResponse> AddFeature(FeatureAddRequest featureRequest)
         {
             
@@ -66,6 +68,34 @@ namespace Services.Feature
 
             // Convert the feature item to a response DTO
             return addedfeature.ToFeatureResponse();
-        } 
+        }
+
+        public async Task<List<FeatureResponse>> AddMultipleFeatures(List<FeatureAddRequest> featureRequests)
+        {
+            List<FeatureResponse> featureResponses = new List<FeatureResponse>();
+
+            foreach (var featureRequest in featureRequests)
+            {
+                var feature = featureRequest.ToFeature();
+                var isEntityExist = await _entityRepository.GetEntityByName(featureRequest.EntityName);
+
+                if (isEntityExist == null)
+                {
+                    var newEntity = new EntityAddRequest
+                    {
+                        EntityName = featureRequest.EntityName,
+                        Description = featureRequest.Description
+                    };
+
+                    var entity = newEntity.ToEntity();
+                    await _entityRepository.AddEntity(entity);
+                }
+
+                var addedfeature = await _featureRepository.AddFeature(feature);
+                featureResponses.Add(addedfeature.ToFeatureResponse());
+            }
+
+            return featureResponses;
+        }
     }
 }

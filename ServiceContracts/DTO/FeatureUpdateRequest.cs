@@ -1,67 +1,26 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ServiceContracts.DTO
+public class FeatureUpdateRequest
 {
-    public class FeatureUpdateRequest
+    public string? FeatureName { get; set; }
+    public string Value { get; set; }
+    public string? FeatureDataType { get; set; }
+
+    public FeatureClass ToFeature(FeatureClass existingFeature)
     {
-
-
-       
-
-        [Required(ErrorMessage = "The FeatureName field is required.")]
-        [StringLength(50, ErrorMessage = "The FeatureName field must not exceed 50 characters.")]
-
-
-        public string? FeatureName { get; set; }
-
-        [Required(ErrorMessage = "The Velue field is required.")]
-        [StringLength(100, ErrorMessage = "The Value field must not exceed 50 characters.")]
-        public string Value { get; set; }
-
-
-        [Required(ErrorMessage = "The Velue field is required.")]
-        [StringLength(100, ErrorMessage = "The Value field must not exceed 50 characters.")]
-        public string? FeatureDataType { get; set; }
-
-
-
-
-
-
-
-        public FeatureClass ToFeature()
+        if (FeatureName != null)
         {
-            return new FeatureClass
-            {
-
-
-                FeatureName = FeatureName,
-                Value = Value,
-
-                FeatureDataType = FeatureDataType,
-
-
-                
-               
-
-                
-
-
-
-
-
-
-            };
-
-
-
-
+            existingFeature.FeatureName = FeatureName;
         }
+        if (Value != null)
+        {
+            existingFeature.Value = Value;
+        }
+        if (FeatureDataType != null)
+        {
+            existingFeature.FeatureDataType = FeatureDataType;
+        }
+
+        return existingFeature;
     }
 }

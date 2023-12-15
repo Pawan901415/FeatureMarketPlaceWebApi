@@ -17,13 +17,18 @@ namespace Services.Entity
 
         private readonly IEntityRepository _entityRepository;
         private readonly IFeatureGetterService _featureGetterService;
+        private IEntityRepository entityRepository;
+        private IFeatureRepository featureRepository;
+        private IEntityRepository @object;
 
-
+       
         public EntityGetterService(IEntityRepository entityRepository, IFeatureGetterService featureGetterService)
         {
             _entityRepository = entityRepository;
             _featureGetterService = featureGetterService;
         }
+
+       
 
         public async Task<List<EntityResponse>> GetAllEntities()
         {
