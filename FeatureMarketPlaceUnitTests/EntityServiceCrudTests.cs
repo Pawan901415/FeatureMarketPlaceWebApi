@@ -25,6 +25,10 @@ namespace FeatureMarketPlaceUnitTests
         private readonly IEntityRepository _entityRepository;
         private readonly IEntityAdderService _entityAdderService;
         private readonly IEntityGetterService _entityGetterService;
+
+        private readonly IEntityUpdaterService _entityUpdaterService;
+
+        private readonly IEntityDeleterService _entityDeleterService;
         private readonly IFixture _fixture;
         private readonly Mock<IEntityRepository> _entityRepositoryMock;
         private readonly Mock<IFeatureRepository> _featureRepositoryMock; 
@@ -40,6 +44,13 @@ namespace FeatureMarketPlaceUnitTests
             var _featureRepository = _featureRepositoryMock.Object; 
 
             _entityAdderService = new EntityAdderService(_entityRepository, _featureRepository);
+
+
+            _entityDeleterService = new EntityDeleterService(_entityRepository);
+
+            _entityGetterService = new EntityGetterService(_entityRepository);
+
+            _entityUpdaterService=new EntityUpdaterService(_entityRepository);
 
         }
 
@@ -108,35 +119,7 @@ namespace FeatureMarketPlaceUnitTests
         #endregion
 
 
-        #region GetAllEnities
-
-        [Fact]
-        public async Task GetAllEntities_ShouldReturnAllEntities()
-        {
-            // Arrange
-            var entityList = new List<EntityClass>
-    {
-        _fixture.Build<EntityClass>()
-        .With(temp => temp.Features, null as List<FeatureClass>).Create(),
-        _fixture.Build<EntityClass>()
-        .With(temp => temp.Features, null as List<FeatureClass>).Create()
-    };
-
-            var entityResponseList = entityList.Select(entity => entity.ToEntityResponse()).ToList();
-
-            _entityRepositoryMock
-                .Setup(repo => repo.GetAllEntities())
-                .ReturnsAsync(entityList);
-
-            // Act
-            var actualEntityResponseList = await _entityGetterService.GetAllEntities();
-
-            // Assert
-            actualEntityResponseList.Should().BeEquivalentTo(entityResponseList);
-        }
-
-
-
+       
 
 
 
@@ -185,10 +168,145 @@ namespace FeatureMarketPlaceUnitTests
 
 
 
+      
+
+        #region DeleteEntity
+
+        [Fact]
+        public async Task DeleteEntityByEntityName_WhenEntityExists_ShouldReturnTrue()
+        {
+            // Arrange
+            string entityName = "TestEntity";
+
+            _entityRepositoryMock.Setup(temp => temp.DeleteEntityByEntityName(It.IsAny<string>()))
+                .ReturnsAsync(true);
+
+            // Act
+            var result = await _entityDeleterService.DeleteEntityByEntityName(entityName);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task DeleteEntityByEntityName_WhenEntityDoesNotExist_ShouldReturnFalse()
+        {
+            // Arrange
+            string entityName = "TestEntity";
+
+            _entityRepositoryMock.Setup(temp => temp.DeleteEntityByEntityName(It.IsAny<string>()))
+                .ReturnsAsync(false);
+
+            // Act
+            var result = await _entityDeleterService.DeleteEntityByEntityName(entityName);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+
+        [Fact]
+        public async Task GetEntityByEntityName_WhenEntityExists_ShouldReturnEntityResponse()
+        {
+            // Arrange
+            string entityName = "TestEntity";
+            var entity = _fixture.Build<EntityClass>()
+                .With(temp => temp.EntityName, entityName)
+                .Create();
+
+            _entityRepositoryMock.Setup(temp => temp.GetEntityByName(It.IsAny<string>()))
+                .ReturnsAsync(entity);
+
+            // Act
+            var result = await _entityGetterService.GetEntityByEntityName(entityName);
+
+            // Assert
+            result.Should().BeEquivalentTo(entity.ToEntityResponse());
+        }
+
+        [Fact]
+        public async Task GetEntityByEntityName_WhenEntityDoesNotExist_ShouldReturnNull()
+        {
+            // Arrange
+            string entityName = "TestEntity";
+
+            _entityRepositoryMock.Setup(temp => temp.GetEntityByName(It.IsAny<string>()))
+                .ReturnsAsync((EntityClass)null);
+
+            // Act
+            var result = await _entityGetterService.GetEntityByEntityName(entityName);
+
+            // Assert
+            result.Should().BeNull();
+        }
+
+        #region UpdateEntity
+        [Fact]
+        public async Task UpdateEntity_WhenEntityExists_ShouldReturnUpdatedEntityResponse()
+        {
+            // Arrange
+            string entityName = "TestEntity";
+            var updateRequest = _fixture.Build<EntityUpdateRequest>().Create();
+
+            var updatedEntity = _fixture.Build<EntityClass>()
+                .With(temp => temp.EntityName, entityName)
+                .With(temp=>temp.Description,"testing")
+                .Create();
+
+            _entityRepositoryMock.Setup(temp => temp.UpdateEntityAsync(It.IsAny<string>(), It.IsAny<EntityUpdateRequest>()))
+                .ReturnsAsync(updatedEntity);
+
+            // Act
+            var result = await _entityUpdaterService.UpdateEntity(entityName, updateRequest);
+
+            // Assert
+            result.Should().BeEquivalentTo(updatedEntity.ToEntityResponse());
+        }
+
+        [Fact]
+        public async Task UpdateEntity_WhenEntityDoesNotExist_ShouldReturnNull()
+        {
+            // Arrange
+            string entityName = "TestEntity";
+            var updateRequest = _fixture.Build<EntityUpdateRequest>().Create();
+
+            _entityRepositoryMock.Setup(temp => temp.UpdateEntityAsync(It.IsAny<string>(), It.IsAny<EntityUpdateRequest>()))
+                .ReturnsAsync((EntityClass)null);
+
+            // Act
+            var result = await _entityUpdaterService.UpdateEntity(entityName, updateRequest);
+
+            // Assert
+            result.Should().BeNull();
+        }
+
+
         #endregion
 
 
 
+        #region GetAllEntities 
+
+        [Fact]
+        public async Task GetAllEntities_ShouldReturnAllEntities()
+        {
+            // Arrange
+            var entities = _fixture.CreateMany<EntityClass>(5).ToList();
+            _entityRepositoryMock.Setup(temp => temp.GetAllEntities())
+                .ReturnsAsync(entities);
+
+            // Act
+            var result = await _entityGetterService.GetAllEntities();
+
+            // Assert
+            result.Should().BeEquivalentTo(entities.ToEntityResponseList());
+        }
+
+
+
+        #endregion
 
 
 

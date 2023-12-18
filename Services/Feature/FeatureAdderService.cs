@@ -19,6 +19,8 @@ namespace Services.Feature
         private readonly IEntityRepository _entityRepository;
         private IEntityRepository entityRepository;
         private IFeatureRepository featureRepository;
+        private IEntityRepository entityRepository1;
+        private IFeatureRepository featureRepository1;
 
         public FeatureAdderService(IFeatureRepository featureRepository, IEntityRepository entityRepository)
         {
@@ -26,7 +28,7 @@ namespace Services.Feature
             _entityRepository = entityRepository;
         }
 
-      
+       
 
         public async Task<FeatureResponse> AddFeature(FeatureAddRequest featureRequest)
         {

@@ -20,8 +20,13 @@ namespace Services.Entity
         private IEntityRepository entityRepository;
         private IFeatureRepository featureRepository;
         private IEntityRepository @object;
+        private IEntityRepository entityRepository1;
 
-       
+        public EntityGetterService(IEntityRepository entityRepository1)
+        {
+            this.entityRepository1 = entityRepository1;
+        }
+
         public EntityGetterService(IEntityRepository entityRepository, IFeatureGetterService featureGetterService)
         {
             _entityRepository = entityRepository;
@@ -35,13 +40,7 @@ namespace Services.Entity
             var entities = await _entityRepository.GetAllEntities();
             var entityResponses = entities.ToEntityResponseList();
 
-            //    foreach(var entityResponse in entityResponses)
-            //    {
-            //        entityResponse.FeatureItems = await _featureGetterService.GetFeatureByEntityName(EntityResponse)
-            //    }
-
-            //    return entityResponses;
-            //}
+           
             return entityResponses;
 
         }
